@@ -9,7 +9,6 @@
 
     <!-- CSS Stylesheet-->
     <link type="text/css" rel="stylesheet" href="public/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="public/vendor/jsoneditor/jsoneditor-min.css">
     <link type="text/css" rel="stylesheet" href="public/css/main.css">
 
     <script src="public/vendor/jquery/jquery-1.9.1.min.js"></script>
@@ -51,7 +50,17 @@
     <div id="page-right">
         <div id="main-top"></div>
         <div id="main-content">
-            
+            <table class='table table-hover'>
+                <thead id="content-thead">
+                </thead>
+                <tbody id="content-tbody">
+                </tbody>
+                <tfoot id="content-tfoot">
+                    <tr>
+                        <td colspan="5" align="center">加载更多..</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
         <div id="main-foot">
             <label id="document-count"></label>

@@ -19,7 +19,6 @@
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
-	background-color: #272822;
 	color: #ffffff;
 }
 
@@ -189,7 +188,9 @@
 	right: 0px;
 	bottom: 24px;
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
+	color: #333333;
+	background-color: #ffffff;
 }
 #main-foot{
 	width: auto;
@@ -209,4 +210,34 @@
 	font-size: 11px;
 	line-height: 24px;
 	color: #f9fff7;
+}
+#content-tfoot{
+	display: none;
+	cursor: pointer;
+}
+.document_tr{
+	cursor: pointer;
+}
+
+/***************desc.html************/
+
+#desc-main{
+	width: 100%;
+	min-height: 600px;
+	height: 600px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	border: 1px solid #ccc;
+}
+#desc_json{
+	width: 100%;
+	height: 600px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
 }
