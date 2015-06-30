@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MongoC</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Stylesheet-->
+    <link type="text/css" rel="stylesheet" href="resources/css/index.css">
+
+    <script src="resources/vendor/jquery/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+    <div id="page-left">
+        <div class="left-row">
+            <div class="left-row-title left-row-title-first">connections</div>
+        </div>
+        <div class="left-row">
+            <select class="connect-select" id="connect-select">
+            </select>
+        </div>
+        <div class="left-row">
+            <div class="left-row-title" id="left-row-connect-name">localhost</div>
+        </div>
+        <div class="left-row left-content-list" id="left-db-list">
+        </div>
+
+        <div class="left-row">
+            <div class="left-row-title" id="left-row-db-name">local</div>
+        </div>
+        <div class="left-row left-content-list left-collection-list" id="left-collection-list">
+        </div>
+    </div>
+    <div id="page-right">
+       
+    </div>
+
+    <div id="lean_overlay"></div>
+    <div class="popup-connections" id="popup_connections">
+        <div class="popup-connect-cell popup-connect-title">Connections</div>
+        <div class="popup-connect-cell">
+            <table id="popup-connect-cell-table">
+            </table>
+        </div>
+        <div class="popup-connect-cell popup-connect-foot">
+            <button id="popup-connect-close">关闭</button>
+        </div>
+    </div>
+
+    <script src="mc/ui/connect.js"></script>
+    <script src="mc/ui/util.js"></script>
+    <script src="mc/ui/main.js"></script>
+</body>
+
+</html>

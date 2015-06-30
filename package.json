@@ -1,0 +1,29 @@
+{
+    "name": "MongoC",
+    "description": "Mongodb Client",
+    "main": "index.html",
+    "version": "0.0.1",
+    "keywords": [
+        "mongodb",
+        "mongoc",
+        "node-webkit"
+    ],
+    "single-instance": true,
+    "window": {
+        "title": "MongoC",
+        "icon": "icon.png",
+        // "frame": false,
+        "toolbar": true,
+        "resizable": true,
+        "always-on-top": false,
+        "fullscreen": false,
+        "position": "center",
+        "width": 1108,
+        "height": 670
+    },
+    "dependencies": {
+        "async": "0.9.0",
+        "bson": "^0.2.19",
+        "mongodb": "~2.0"
+    }
+}
