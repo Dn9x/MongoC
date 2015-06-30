@@ -31,24 +31,6 @@ DB.getCollections = function(connect, dbName, callback) {
 		console.log(results);
 		callback(err, results);
 	});
-
-	// var url = 'mongodb://localhost/admin';
-
-	// MongoClient.connect(url, function(err, db) {
-
-	// 	var adminDb = db.admin();
-
-	// 	adminDb.listDatabases(function(err, dbs) {
-
-	// 		var testDb = db.db(name);
-
-	// 		testDb.collections(function(err, results) {
-	// 			db.close();
-	// 			console.log(results);
-	// 			callback(err, results);
-	// 		});
-	// 	});
-	// });
 };
 
 DB.getDocumentsCount = function(dbName, collectionName, callback, query) {
