@@ -86,4 +86,8 @@ function getConnections(){
 	return Util.getConnections();
 }
 
+function changeSelectConnection(url){
+	$("#connect-select").val(url);
+}
+
 

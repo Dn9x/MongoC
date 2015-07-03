@@ -33,6 +33,9 @@ $(function() {
 
 		//保存连接信息
 		saveConnections();
+
+		//改变选择的显示
+		changeSelectConnection(tempUrl);
 		
 		//打开连接
 		openConnect(url);

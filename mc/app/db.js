@@ -2,10 +2,9 @@ var MongoClient = require('mongodb').MongoClient;
 var async = require('async');
 var ObjectId = require('mongodb').ObjectID;
 
-function DB(host, port) {
-	this.host = host;
-	this.port = port;
-}
+var DB = {};
+
+DB.collections = [];
 
 DB.getConnects = function(url, callback){
 	MongoClient.connect(url, function(err, db) {
@@ -25,68 +24,91 @@ DB.getDbs = function(connect, callback) {
 
 DB.getCollections = function(connect, dbName, callback) {
 	var testDb = connect.db(dbName);
+	var self = this;
 
 	testDb.collections(function(err, results) {
 		// connect.close();
-		console.log(results);
+		// console.log(results);
+		self.collections = results;
+		
 		callback(err, results);
 	});
 };
 
-DB.getDocumentsCount = function(dbName, collectionName, callback, query) {
-	console.log(dbName, collectionName);
-	var url = 'mongodb://localhost/'+dbName;
+DB.getDocumentsCount = function(connect, dbName, collectionName, callback, query) {
 
-	MongoClient.connect(url, function(err, db) {
-		var collection = db.collection(collectionName);
-		
-		if(query = undefined){
-			query = {};
+	var collection = null;
+
+	for(var i=0;i<this.collections.length;i++){
+
+		if(dbName == this.collections[i].s.dbName && collectionName == this.collections[i].s.name){
+			collection = this.collections[i];
+			break;
 		}
+	}
 
-		collection.count(query, function(err, n) {
-			if(err){
-				return callback(err, n);
-			}
-		    callback(null, n);
-		}); 
+	if(!collection){
+		var testDb = connect.db(dbName);
+		collection = testDb.collection(collectionName);
+	}
+		
+	if(query = undefined){
+		query = {};
+	}
+
+	collection.count(query, function(err, n) {
+		if(err){
+			return callback(err, n);
+		}
+	    callback(null, n);
 	});
 };
 
+// 此方法还有问题，没法解决点命名法的bug，
+// bug的具体详情是，如果数据库名称为test，并且集合的名称都是以"test."开头的，那么这样的集合将无法读取。
+DB.getDocuments = function(connect, dbName, collectionName, index, count, callback, query) {
+	var collection = null;
 
-DB.getDocuments = function(dbName, collectionName, index, count, callback, query) {
-	console.log(dbName, collectionName);
-	var url = 'mongodb://localhost/'+dbName;
+	for(var i=0;i<this.collections.length;i++){
 
-	MongoClient.connect(url, function(err, db) {
-		var collection = db.collection(collectionName);
-
-		if(query = undefined){
-			query = {};
+		if(dbName == this.collections[i].s.dbName && collectionName == this.collections[i].s.name){
+			collection = this.collections[i];
+			break;
 		}
+	}
+
+	if(!collection){
+		var testDb = connect.db(dbName);
+		collection = testDb.collection(collectionName);
+	}
 		
-		collection.find(query, null, index, count).toArray(function(err, docs) {
-			if(err){
-				return callback(err, null);
-			}
-		    callback(null, docs);
-		}); 
-	});
+	if(query = undefined){
+		query = {};
+	}
+
+	collection.find(query, null, index, count).toArray(function(err, docs) {
+		console.log(err, docs);
+		if(err){
+			return callback(err, null);
+		}
+	    callback(null, docs);
+	}); 
 };
 
 DB.getDocumentsById = function(dbName, collectionName, id, callback) {
-	console.log(dbName, collectionName);
-	var url = 'mongodb://localhost/'+dbName;
+	var testDb = connect.db(dbName);
 
-	MongoClient.connect(url, function(err, db) {
-		var collection = db.collection(collectionName);
+	var collection = testDb.collection(collectionName);
+		
+	if(query = undefined){
+		query = {};
+	}
 
-		collection.find({"_id": new ObjectId(id) }, null, 0, 1).toArray(function(err, docs) {
-		    if(err){
-				return callback(err, null);
-			}
-		    callback(null, docs);
-		});
+	collection.find({"_id": new ObjectId(id) }, null, 0, 1).toArray(function(err, docs) {
+	    if(err){
+			return callback(err, null);
+		}
+	    callback(null, docs);
 	});
 };
 

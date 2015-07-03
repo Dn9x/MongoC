@@ -10,12 +10,16 @@
     <!-- CSS Stylesheet-->
     <link rel="stylesheet" href="resources/vendor/codemirror-5.4/lib/codemirror.css">
     <link rel="stylesheet" href="resources/vendor/codemirror-5.4/theme/monokai.css">
+    <link rel="stylesheet" href="resources/vendor/bootstrap/css/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="resources/css/index.css">
 
     <script src="resources/vendor/jquery/jquery-1.9.1.min.js"></script>
+    <script src="resources/vendor/underscore/underscore-min.js"></script>
+    <script src="resources/vendor/moment/moment.min.js"></script>
     <script src="resources/vendor/codemirror-5.4/lib/codemirror.js"></script>
     <script src="resources/vendor/codemirror-5.4/mode/javascript/javascript.js"></script>
     <script src="resources/vendor/codemirror-5.4/keymap/sublime.js"></script>
+    <script src="resources/vendor/bootstrap/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -48,8 +52,46 @@
                 <button id="right_head_search">Search</button>
             </div>
         </div>
-        <div class="right-row right-row-body"></div>
-        <div class="right-row right-row-foot"></div>
+        <div class="right-row right-row-body">
+            <table class="table table-bordered">
+                <thead id="right-row-body-thead">
+                    <tr>
+                        <th>#</th>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody id="right-row-body-tbody">
+                    <tr>
+                        <th scope="row">1</th>
+                        <th>
+                            <button title='delete' class='right-row-body-document-action'>D</button>
+                            <button title='edit' class='right-row-body-document-action'>E</button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+                <tfoot id="right-row-body-tfoot">
+                    
+                </tfoot>
+            </table>
+        </div>
     </div>
 
     <div id="lean_overlay"></div>

@@ -14,7 +14,7 @@
         "icon": "icon.png",
         // "frame": false,
         "toolbar": true,
-        "resizable": true,
+        "resizable": false,
         "always-on-top": false,
         "fullscreen": false,
         "position": "center",
@@ -24,6 +24,7 @@
     "dependencies": {
         "async": "0.9.0",
         "bson": "^0.2.19",
-        "mongodb": "~2.0"
+        "mongodb": "~2.0",
+        "underscore": "1.8.3"
     }
 }

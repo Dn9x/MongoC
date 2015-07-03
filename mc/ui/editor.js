@@ -17,5 +17,5 @@ function showEditor() {
 		height: "36px"
 	});
 
-	$("#search_text").find(".CodeMirror").css("height", "36px");
+	$("#search_text").find(".CodeMirror").css("height", "44px");
 }
