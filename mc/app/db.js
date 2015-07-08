@@ -87,7 +87,6 @@ DB.getDocuments = function(connect, dbName, collectionName, index, count, callba
 	}
 
 	collection.find(query, null, index, count).toArray(function(err, docs) {
-		console.log(err, docs);
 		if(err){
 			return callback(err, null);
 		}
@@ -95,10 +94,22 @@ DB.getDocuments = function(connect, dbName, collectionName, index, count, callba
 	}); 
 };
 
-DB.getDocumentsById = function(dbName, collectionName, id, callback) {
-	var testDb = connect.db(dbName);
+DB.getDocumentsById = function(connect, dbName, collectionName, id, callback) {
 
-	var collection = testDb.collection(collectionName);
+	var collection = null;
+
+	for(var i=0;i<this.collections.length;i++){
+
+		if(dbName == this.collections[i].s.dbName && collectionName == this.collections[i].s.name){
+			collection = this.collections[i];
+			break;
+		}
+	}
+
+	if(!collection){
+		var testDb = connect.db(dbName);
+		collection = testDb.collection(collectionName);
+	}
 		
 	if(query = undefined){
 		query = {};
@@ -108,8 +119,56 @@ DB.getDocumentsById = function(dbName, collectionName, id, callback) {
 	    if(err){
 			return callback(err, null);
 		}
+
 	    callback(null, docs);
 	});
+};
+
+DB.updateDocument = function(connect, dbName, collectionName, selector, document, callback){
+	var collection = null;
+
+	for(var i=0;i<this.collections.length;i++){
+
+		if(dbName == this.collections[i].s.dbName && collectionName == this.collections[i].s.name){
+			collection = this.collections[i];
+			break;
+		}
+	}
+
+	if(!collection){
+		var testDb = connect.db(dbName);
+		collection = testDb.collection(collectionName);
+	}
+		
+	if(query = undefined){
+		query = {};
+	}
+
+	collection.update(selector, document, null, function(err, res) {
+	    if(err){
+			return callback(err, null);
+		}
+
+	    callback(null, res);
+	});
+}
+
+DB.updateDocumentById = function(connect, dbName, collectionName, document, callback){
+	var selector = { "_id": new ObjectId(document._id) };
+
+	if("_id" in document){
+		delete document._id;
+	}
+	
+	this.updateDocument(connect, dbName, collectionName, selector, document, callback);
+}
+
+DB.isObjectId = function(id){
+	if(id instanceof ObjectId){
+		return true;
+	}else{
+		return false;
+	}
 };
 
 module.exports = DB;

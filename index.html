@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/vendor/codemirror-5.4/lib/codemirror.css">
     <link rel="stylesheet" href="resources/vendor/codemirror-5.4/theme/monokai.css">
     <link rel="stylesheet" href="resources/vendor/bootstrap/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="resources/vendor/jsoneditor/jsoneditor.css">
     <link type="text/css" rel="stylesheet" href="resources/css/index.css">
 
     <script src="resources/vendor/jquery/jquery-1.9.1.min.js"></script>
@@ -20,6 +21,7 @@
     <script src="resources/vendor/codemirror-5.4/mode/javascript/javascript.js"></script>
     <script src="resources/vendor/codemirror-5.4/keymap/sublime.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="resources/vendor/jsoneditor/jsoneditor.js"></script>
 </head>
 
 <body>
@@ -105,6 +107,18 @@
             <button id="popup-connect-close">关闭</button>
         </div>
     </div>
+
+
+    <div class="popup-document" id="popup_document">
+        <div class="popup-document-cell popup-document-title">
+            <article id="popup_document_edit">
+        </div>
+        <div class="popup-document-cell popup-document-foot">
+            <button id="popup-document-save">保存</button>
+            <button id="popup-document-close">关闭</button>
+        </div>
+    </div>
+
 
     <script src="mc/ui/connect.js"></script>
     <script src="mc/ui/util.js"></script>

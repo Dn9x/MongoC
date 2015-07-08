@@ -3,7 +3,8 @@ global.Mc = {
 	pages:{
 		total: 0,
 		index: 1
-	}
+	},
+	editor: null
 };
 var async = require('async');
 var DB = require('./mc/app/db');
@@ -159,14 +160,26 @@ function showDocuments(err, docs){
 	}
 	thead += "</tr>";
 
+
 	//3.2 拼接数据
 	for (var i = 0; i < tempBodys.length; i++) {
 		var doc = tempBodys[i];
 
+		var _tempId;
+		for(var j=0; j<doc.length;j++){	
+			if(DB.isObjectId(doc[j])){
+				_tempId = doc[j];
+				break;
+			}
+		}
+
+		_tempId = _tempId!=undefined?_tempId:doc[0];
+		var _tempFiled = tempHeads[0];
+
 		tbody += "<tr>" + 
 				 "<td nowrap='nowrap'>" + 
-				 "<button title='delete' class='right-row-body-document-action'>D</button>" + 
-                 "<button title='edit' class='right-row-body-document-action'>E</button>" + 
+				 "<button title='delete' class='right-row-body-document-action' data-name='"+_tempFiled+"' data-id='"+_tempId+"' onClick='deleteDocument(this)'>D</button>" + 
+                 "<button title='edit' class='right-row-body-document-action' data-name='"+_tempFiled+"' data-id='"+_tempId+"' onClick='editDocument(this)'>E</button>" + 
 				 "</td>";
 
 		for(var j=0; j<doc.length;j++){
@@ -226,34 +239,45 @@ function documentPageAction(action){
 	//总共多少页
 	var pages = Math.ceil(global.Mc.pages.total/15);
 
+	var startIndex = 0;
 	console.log(global.Mc.pages.index);
 
 	switch(action){
 		case 1: 
 			global.Mc.pages.index = 1;
+			startIndex = 0;
 			break;
 		case 2: 
-			if(global.Mc.pages.index>1){
+			if(global.Mc.pages.index>2){
 				global.Mc.pages.index--;
+				startIndex = global.Mc.pages.index*15;
+			}else if(global.Mc.pages.index==2){
+				global.Mc.pages.index--;
+				startIndex = 0;
 			}
 			break;
 		case 3: 
 			if(global.Mc.pages.index<pages){
+				startIndex = global.Mc.pages.index*15;
 				global.Mc.pages.index++;
+			}else if(global.Mc.pages.index==pages){
+				global.Mc.pages.index = pages;
+				startIndex = (pages-1)*15;
 			}
 			break;
 		case 4: 
-			global.Mc.pages.index = pages-1;
+			global.Mc.pages.index = pages;
+			startIndex = (pages-1)*15;
 			break;
 	};
 
 
-	console.log(global.Mc.pages.index, global.Mc.pages.total);
+	console.log(global.Mc.pages.index, startIndex, global.Mc.pages.total);
 
-	if(global.Mc.pages.index < pages){
+	if(global.Mc.pages.index <= pages){
 		async.series({
 			one: function(cb) {
-				DB.getDocuments(global.Mc.connect, global.Mc.dbName, global.Mc.collname, global.Mc.pages.index, 15, function(err, docs){
+				DB.getDocuments(global.Mc.connect, global.Mc.dbName, global.Mc.collname, startIndex, 15, function(err, docs){
 					showDocuments(err, docs);
 
 					cb(null, 'ok');
@@ -276,8 +300,47 @@ function documentPageAction(action){
 	console.log(action);
 }
 
+function deleteDocument(self){
+	if(confirm("你确定要删除文档吗？？")){
+		console.log(self);
 
+		console.log("删除文档");
+	}
+}
 
+function editDocument(self){
+	var val = $(self).data("id");
+
+	DB.getDocumentsById(global.Mc.connect, global.Mc.dbName, global.Mc.collname, val, function(err, docs){
+		if(docs[0] != undefined && docs[0] != null){
+
+			showPopup("popup_document");
+
+			var container = document.getElementById('popup_document_edit');
+
+			$(container).html("");
+
+			var options = {
+				mode: 'form',
+				theme: "foundation5"
+			};
+
+			var obj = JSON.stringify(docs[0]);
+
+			var editor = new JSONEditor(container, options, JSON.parse(obj));
+
+			global.Mc.editor = editor;
+		}
+	});
+}
+
+function updateDocument(obj, callback){
+	DB.updateDocumentById(global.Mc.connect, global.Mc.dbName, global.Mc.collname, JSON.parse(obj), function(err, res){
+		console.log(err, res);
+
+		hidePopup("popup_document");
+	});
+}
 
 
 

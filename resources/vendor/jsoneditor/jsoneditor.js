@@ -934,24 +934,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.history.onChange();
 	  }
 
-	  // create expand all button
-	  var saveButton = document.createElement('button');
-	  saveButton.title = 'Save Document';
-	  saveButton.className = 'save-document';
-	  saveButton.onclick = function () {
-	    editor.saveDocument();
-	  };
-	  this.menu.appendChild(saveButton);
+	  // // create expand all button
+	  // var saveButton = document.createElement('button');
+	  // saveButton.title = 'Save Document';
+	  // saveButton.className = 'save-document';
+	  // saveButton.onclick = function () {
+	  //   editor.saveDocument();
+	  // };
+	  // this.menu.appendChild(saveButton);
 
 
-	  // create expand all button
-	  var cancelButton = document.createElement('button');
-	  cancelButton.title = 'Cancel Save';
-	  cancelButton.className = 'cancel-document';
-	  cancelButton.onclick = function () {
-	    editor.cancelDocument();
-	  };
-	  this.menu.appendChild(cancelButton);
+	  // // create expand all button
+	  // var cancelButton = document.createElement('button');
+	  // cancelButton.title = 'Cancel Save';
+	  // cancelButton.className = 'cancel-document';
+	  // cancelButton.onclick = function () {
+	  //   editor.cancelDocument();
+	  // };
+	  // this.menu.appendChild(cancelButton);
 
 	  
 

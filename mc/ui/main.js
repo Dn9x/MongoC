@@ -45,6 +45,19 @@ $(function() {
 		hidePopup('popup_connections');
 	});
 
+	$("#popup-document-close").click(function(){
+		hidePopup('popup_document');
+	});
+
+	$("#popup-document-save").click(function(){
+		var value = global.Mc.editor.getText();
+
+		console.log(value) // Will log "John Smith"
+		
+		updateDocument(value);
+	});
+
+
 	$("#btnConnect").click(function() {
 
 		var host = $("#host").val();
